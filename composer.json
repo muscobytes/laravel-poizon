@@ -4,6 +4,7 @@
     "type": "library",
     "license": "MIT",
     "require": {
+        "php": "^8.2",
         "illuminate/cache": "^12.0",
         "illuminate/console": "^12.0",
         "illuminate/contracts": "^12.0",
@@ -11,14 +12,15 @@
         "illuminate/encryption": "^12.0",
         "illuminate/http": "^12.0",
         "illuminate/support": "^12.0",
-        "php": "^8.2",
         "psr/log": "^3.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^10.0",
-        "phpunit/phpunit": "^11.5",
+        "ext-pdo_sqlite": "*",
+        "ext-zip": "*",
+        "laravel/pint": "^1.24",
         "mockery/mockery": "^1.6",
-        "laravel/pint": "^1.24"
+        "orchestra/testbench": "^10.0",
+        "phpunit/phpunit": "^11.5"
     },
     "autoload": {
         "psr-4": {
