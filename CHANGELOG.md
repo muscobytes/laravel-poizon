@@ -1,0 +1,13 @@
+# Изменения
+
+Версии следуют Semantic Versioning. До 1.0 несовместимые изменения повышают minor-версию.
+
+## 0.1.0 — 2026-11-24
+
+- Первый самостоятельный выпуск SDK для Laravel 12 / PHP 8.2+.
+- Composer-имя: `muscobytes/laravel-poizon`; namespace: `Muscobytes\Poizon`.
+- Перенесены типизированный API, OAuth, миграция и 30 тестовых методов из встроенного пакета `raketa/laravel-poizon`. Поведение протокола сохранено.
+- Добавлены MIT, Laravel Pint и GitHub Actions.
+
+Происхождение: `reseller.raketacn.ru/packages/poizon`, SHA приложения
+`9a9e5774c04b315b23d15bd412690dabc40af5c5`. История приложения не импортирована.
