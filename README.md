@@ -1,16 +1,16 @@
 # muscobytes/laravel-poizon
 
-Poizon Open Platform для Laravel 12 / PHP 8.2+. Namespace `Muscobytes\Poizon`. Самостоятельный SDK с типизированными ответами, устойчивым хранением OAuth и безопасной диагностикой.
+Poizon Open Platform для Laravel 12 / PHP 8.2+ и Laravel 13 / PHP 8.3+. Namespace `Muscobytes\Poizon`. Самостоятельный SDK с типизированными ответами, устойчивым хранением OAuth и безопасной диагностикой.
 
 ## Установка и конфигурация
 
 ```sh
-composer require muscobytes/laravel-poizon:^0.1.1
+composer require muscobytes/laravel-poizon:^0.1.2
 php artisan vendor:publish --tag=poizon-config
 php artisan migrate
 ```
 
-ServiceProvider подключается через Laravel auto-discovery. Требования: PHP 8.2+, Laravel 12, PDO-драйвер выбранной базы данных и cache store с поддержкой атомарных locks. OAuth-токены шифруются ключом приложения `APP_KEY`; сохраните его при переносе существующей базы.
+ServiceProvider подключается через Laravel auto-discovery. Требования: Laravel 12 с PHP 8.2+ либо Laravel 13 с PHP 8.3+, PDO-драйвер выбранной базы данных и cache store с поддержкой атомарных locks. OAuth-токены шифруются ключом приложения `APP_KEY`; сохраните его при переносе существующей базы.
 
 Сохраняются переменные `POIZON_OPEN_APP_KEY`, `POIZON_OPEN_APP_SECRET`, `POIZON_OPEN_BASE_URL` (только `https://open.poizon.com`), `POIZON_OPEN_REDIRECT_URI`, `POIZON_OPEN_LANGUAGE` (`en`), `POIZON_OPEN_TIME_ZONE` (`Asia/Shanghai`), `POIZON_OPEN_CALLBACK_URL`. Конфигурация находится в `poizon.open_platform`. Одно приложение Poizon на сервис, любое количество подключений. Redirect URI — абсолютный HTTPS URL без userinfo, query и fragment; он проверяется при построении URL авторизации и не требуется для refresh.
 
@@ -167,7 +167,7 @@ composer lint
 composer test
 ```
 
-`composer format` применяет Laravel Pint. Testbench 10 / PHPUnit 11 загружают только пакет. GitHub Actions проверяет PHP 8.2 и 8.4, включая установку в изолированное Laravel-приложение. HTTP в тестах подменён, запросы к реальному Poizon запрещены.
+`composer format` применяет Laravel Pint. Testbench 10 (Laravel 12) и 11 (Laravel 13) / PHPUnit 11 загружают только пакет. GitHub Actions проверяет Laravel 12 на PHP 8.2 и 8.4, Laravel 13 на PHP 8.3 и 8.5, включая установку в изолированное приложение каждой версии. HTTP в тестах подменён, запросы к реальному Poizon запрещены.
 
 Инструкции по участию и выпуску: [CONTRIBUTING.md](CONTRIBUTING.md). Изменения: [CHANGELOG.md](CHANGELOG.md).
 

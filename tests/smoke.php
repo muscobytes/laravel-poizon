@@ -1,10 +1,14 @@
 <?php
 
-// Run locally with no argument, or verify Packagist with: php tests/smoke.php 0.1.1.
+// Run locally with no argument, or verify Packagist with: LARAVEL_VERSION=13 php tests/smoke.php 0.1.2.
 $root = dirname(__DIR__);
 $publishedVersion = $argv[1] ?? null;
+$laravelVersion = getenv('LARAVEL_VERSION') ?: '12';
+if (! in_array($laravelVersion, ['12', '13'], true)) {
+    throw new InvalidArgumentException('Expected LARAVEL_VERSION to be 12 or 13.');
+}
 if ($publishedVersion !== null && ! preg_match('/^\d+\.\d+\.\d+$/D', $publishedVersion)) {
-    throw new InvalidArgumentException('Expected a stable release version such as 0.1.1.');
+    throw new InvalidArgumentException('Expected a stable release version such as 0.1.2.');
 }
 $temporary = sys_get_temp_dir().'/laravel-poizon-smoke-'.bin2hex(random_bytes(8));
 mkdir($temporary, 0700, true);
@@ -53,7 +57,7 @@ try {
         $package['dist'] = ['type' => 'zip', 'url' => 'file://'.$temporary.'/package.zip'];
     }
 
-    run(['composer', 'create-project', 'laravel/laravel', $temporary.'/app', '^12.0', '--no-install', '--no-scripts', '--no-interaction'], $temporary);
+    run(['composer', 'create-project', 'laravel/laravel', $temporary.'/app', '^'.$laravelVersion.'.0', '--no-install', '--no-scripts', '--no-interaction'], $temporary);
     $application = $temporary.'/app';
     $manifest = json_decode(file_get_contents($application.'/composer.json'), true, flags: JSON_THROW_ON_ERROR);
     if ($publishedVersion === null) {
@@ -119,10 +123,14 @@ if (($argv[1] ?? '') !== '') {
         throw new RuntimeException('Published version or default Packagist configuration mismatch.');
     }
 }
+if (explode('.', Illuminate\Foundation\Application::VERSION)[0] !== ($argv[2] ?? '')) {
+    throw new RuntimeException('Unexpected Laravel version.');
+}
+echo 'Laravel version: '.Illuminate\Foundation\Application::VERSION."\n";
 echo 'Installed package version: '.$installed."\n";
 echo "Package installation smoke passed.\n";
 PHP);
-    run([PHP_BINARY, 'check-package.php', $publishedVersion ?? ''], $application);
+    run([PHP_BINARY, 'check-package.php', $publishedVersion ?? '', $laravelVersion], $application);
 } finally {
     removeDirectory($temporary);
 }
