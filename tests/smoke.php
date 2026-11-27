@@ -67,7 +67,7 @@ try {
     if ($publishedVersion === null) {
         run(['composer', 'install', '--no-dev', '--prefer-dist', '--no-interaction', '--no-progress'], $application);
     } else {
-        run(['composer', 'require', 'muscobytes/laravel-poizon:^'.$publishedVersion, '--no-dev', '--prefer-dist', '--no-interaction', '--no-progress'], $application);
+        run(['composer', 'require', 'muscobytes/laravel-poizon:^'.$publishedVersion, '--update-no-dev', '--prefer-dist', '--no-interaction', '--no-progress'], $application);
     }
 
     file_put_contents($application.'/.env', "APP_ENV=testing\nAPP_KEY=base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\nDB_CONNECTION=sqlite\nDB_DATABASE=".$application."/database/database.sqlite\nCACHE_STORE=array\n");
