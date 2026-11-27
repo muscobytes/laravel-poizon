@@ -25,6 +25,10 @@ final readonly class Spu extends Record
 
     public static function fromArray(#[\SensitiveParameter] array $values): self
     {
+        if (is_int($values['distSpuId'] ?? null) && $values['distSpuId'] >= 0) {
+            $values['distSpuId'] = (string) $values['distSpuId'];
+        }
+
         return Hydrator::record(self::class, $values, ['styleId' => 'string', 'dwSpuId' => 'id', 'distSpuId' => 'string', 'dwSpuTitle' => 'string', 'distSpuTitle' => 'string', 'distBrandName' => 'string', 'title' => 'string', 'image' => 'string', 'skuList' => 'list:Sku']);
     }
 }

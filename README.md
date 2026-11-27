@@ -5,7 +5,7 @@ Poizon Open Platform для Laravel 12 / PHP 8.2+. Namespace `Muscobytes\Poizon`
 ## Установка и конфигурация
 
 ```sh
-composer require muscobytes/laravel-poizon:^0.1
+composer require muscobytes/laravel-poizon:^0.1.1
 php artisan vendor:publish --tag=poizon-config
 php artisan migrate
 ```
@@ -38,6 +38,8 @@ ServiceProvider подключается через Laravel auto-discovery. Тр
 Отсутствие обязательного поля или неверный тип — `ProtocolException`. Опциональные поля nullable; `Record::has()` позволяет отличить отсутствие от явного null, `fields()` сохраняет присутствие и порядок протокольных полей. Неизвестные поля хранятся в `extraFields` после удаления секретов. Неизвестные статусы остаются строками и не означают бизнес-успех. Пагинация (`total`, `pageNum`, `pageSize`, `lastId`, `hasMore`, когда они есть в протоколе) представлена в DTO; автоматического обхода всех страниц нет.
 
 DTO не являются legacy-массивами и не выполняют финансовые действия. Приложение реализует явное преобразование DTO в свой прежний формат.
+
+Подтверждённые правила чтения каталога и ограничения текущего SDK: [синхронизация каталога](docs/catalog-sync.md). Начиная с `0.1.1` доступны временные фильтры списков и `SpuListQuery::querySku`; для этих возможностей используйте Composer constraint `^0.1.1`. Живые спайки и синтетические регрессии разделены; цены обновляются отдельным чтением, обнаружение снятия SKU не гарантируется.
 
 ```php
 use Muscobytes\Poizon\PoizonClient;
